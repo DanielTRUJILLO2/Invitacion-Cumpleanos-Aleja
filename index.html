@@ -882,11 +882,9 @@
     </section>
   </div>
 
-  <audio id="bg-music" loop>
-    <source src="musica.mp3" type="audio/mpeg">
-  </audio>
+  
 
-  <button id="music-btn" class="music-btn">❚❚</button>
+  
 
   <script>
     const colors = ["#d4a150", "#c06b86", "#f4a9bf", "#ffffff"];
@@ -907,32 +905,20 @@
     const envelope = document.getElementById("openEnvelope");
     const envelopeArea = document.querySelector(".envelope-area");
     const page = document.getElementById("invitationPage");
-    const audio = document.getElementById("bg-music");
-    const musicBtn = document.getElementById("music-btn");
-    let playing = false;
+    const intro = document.getElementById("introScreen");
+    const envelope = document.getElementById("openEnvelope");
+    const envelopeArea = document.querySelector(".envelope-area");
+    const page = document.getElementById("invitationPage");
     let alreadyOpened = false;
-
-    function playMusic() {
-      audio.volume = 0.45;
-      audio.play().then(() => {
-        playing = true;
-        musicBtn.textContent = "❚❚";
-      }).catch(() => {
-        playing = false;
-        musicBtn.textContent = "▶";
-      });
-    }
 
     function openInvitation() {
       if (alreadyOpened) return;
       alreadyOpened = true;
 
       intro.classList.add("opening");
-      playMusic();
 
       setTimeout(() => {
         page.classList.add("show");
-        musicBtn.classList.add("show");
       }, 760);
 
       setTimeout(() => {
@@ -952,16 +938,6 @@
     envelopeArea.addEventListener("click", handleOpen);
     envelopeArea.addEventListener("pointerup", handleOpen);
     envelopeArea.addEventListener("touchend", handleOpen, { passive: false });
-
-    musicBtn.addEventListener("click", () => {
-      if (playing) {
-        audio.pause();
-        playing = false;
-        musicBtn.textContent = "▶";
-      } else {
-        playMusic();
-      }
-    });
   </script>
 </body>
 </html>
