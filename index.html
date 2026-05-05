@@ -77,7 +77,7 @@
         radial-gradient(circle at 20% 15%, rgba(255, 218, 230, 0.95), transparent 32%),
         radial-gradient(circle at 85% 88%, rgba(246, 230, 199, 0.85), transparent 34%),
         linear-gradient(135deg, #fff6f8, #f8dfe8, #fffaf0);
-      transition: opacity 0.9s ease, visibility 0.9s ease;
+      transition: opacity 0.75s ease, visibility 0.75s ease;
     }
 
     .intro-screen.hide {
@@ -164,7 +164,7 @@
       color: var(--rose);
       font-family: "Cormorant Garamond", serif;
       font-size: 2.3rem;
-      transition: transform 0.8s ease;
+      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .env-letter small {
@@ -186,7 +186,7 @@
       background: linear-gradient(135deg, #f1bccd, #fff0f5);
       clip-path: polygon(0 0, 50% 78%, 100% 0);
       transform-origin: top;
-      transition: transform 0.8s ease;
+      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 3;
       border-radius: 18px 18px 0 0;
     }
@@ -253,15 +253,18 @@
 
     .intro-screen.opening .env-flap {
       transform: rotateX(180deg);
+      transition-delay: 0s;
     }
 
     .intro-screen.opening .env-letter {
-      transform: translateY(-65px);
+      transform: translateY(-78px) scale(1.03);
+      transition-delay: 0.18s;
     }
 
     .intro-screen.opening .env-seal {
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transform: translateX(-50%) scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .page {
@@ -270,7 +273,7 @@
       z-index: 2;
       opacity: 0;
       transform: translateY(24px) scale(0.98);
-      transition: opacity 0.9s ease, transform 0.9s ease;
+      transition: opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1), transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .page.show {
@@ -868,9 +871,12 @@
 
       setTimeout(() => {
         intro.classList.add("hide");
+      }, 1050);
+
+      setTimeout(() => {
         page.classList.add("show");
         musicBtn.classList.add("show");
-      }, 950);
+      }, 1180);
     }
 
     function handleOpen(event) {
