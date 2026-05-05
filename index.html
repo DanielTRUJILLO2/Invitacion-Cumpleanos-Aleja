@@ -53,15 +53,9 @@
     }
 
     @keyframes floatSparkle {
-      0% {
-        transform: translateY(105vh) scale(0.7);
-        opacity: 0;
-      }
+      0% { transform: translateY(105vh) scale(0.7); opacity: 0; }
       20% { opacity: 1; }
-      100% {
-        transform: translateY(-15vh) scale(1.12);
-        opacity: 0;
-      }
+      100% { transform: translateY(-15vh) scale(1.12); opacity: 0; }
     }
 
     .intro-screen {
@@ -77,7 +71,7 @@
         radial-gradient(circle at 20% 15%, rgba(255, 218, 230, 0.95), transparent 32%),
         radial-gradient(circle at 85% 88%, rgba(246, 230, 199, 0.85), transparent 34%),
         linear-gradient(135deg, #fff6f8, #f8dfe8, #fffaf0);
-      transition: opacity 0.75s ease, visibility 0.75s ease;
+      transition: opacity 0.9s ease, visibility 0.9s ease;
     }
 
     .intro-screen.hide {
@@ -95,14 +89,8 @@
     }
 
     @keyframes envelopeEnter {
-      from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.97);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .envelope-title {
@@ -111,6 +99,7 @@
       color: var(--rose-dark);
       line-height: 1.08;
       margin-bottom: 10px;
+      transition: opacity 0.55s ease, transform 0.55s ease;
     }
 
     .envelope-subtitle {
@@ -120,6 +109,7 @@
       text-transform: uppercase;
       margin-bottom: 34px;
       font-weight: 600;
+      transition: opacity 0.55s ease, transform 0.55s ease;
     }
 
     .envelope {
@@ -131,6 +121,9 @@
       cursor: pointer;
       filter: drop-shadow(0 24px 30px rgba(132, 78, 92, 0.24));
       animation: envelopeFloat 3.5s ease-in-out infinite;
+      transform-style: preserve-3d;
+      perspective: 900px;
+      transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
     }
 
     @keyframes envelopeFloat {
@@ -153,9 +146,9 @@
       width: 82%;
       height: 145px;
       left: 9%;
-      top: 10px;
+      top: 12px;
       border-radius: 16px;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.98);
       border: 1px solid rgba(212, 161, 80, 0.45);
       display: flex;
       align-items: center;
@@ -164,7 +157,9 @@
       color: var(--rose);
       font-family: "Cormorant Garamond", serif;
       font-size: 2.3rem;
-      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 10px 22px rgba(132, 78, 92, 0.12);
+      transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease;
+      z-index: 2;
     }
 
     .env-letter small {
@@ -185,10 +180,11 @@
       height: 118px;
       background: linear-gradient(135deg, #f1bccd, #fff0f5);
       clip-path: polygon(0 0, 50% 78%, 100% 0);
-      transform-origin: top;
-      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
-      z-index: 3;
+      transform-origin: top center;
+      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 5;
       border-radius: 18px 18px 0 0;
+      backface-visibility: hidden;
     }
 
     .env-front-left,
@@ -199,6 +195,7 @@
       inset: 45px 0 0;
       border-radius: 18px;
       z-index: 4;
+      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease;
     }
 
     .env-front-left {
@@ -234,6 +231,7 @@
       color: white;
       font-size: 1.45rem;
       box-shadow: 0 10px 20px rgba(212, 161, 80, 0.32);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .open-text {
@@ -244,6 +242,7 @@
       text-transform: uppercase;
       font-weight: 600;
       animation: tapPulse 1.7s ease-in-out infinite;
+      transition: opacity 0.45s ease, transform 0.45s ease;
     }
 
     @keyframes tapPulse {
@@ -251,20 +250,47 @@
       50% { opacity: 1; transform: translateY(-3px); }
     }
 
+    .intro-screen.opening .envelope-title,
+    .intro-screen.opening .envelope-subtitle,
+    .intro-screen.opening .open-text {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    .intro-screen.opening .envelope {
+      animation: none;
+      transform: translateY(18px) scale(0.96);
+      opacity: 0.98;
+    }
+
     .intro-screen.opening .env-flap {
-      transform: rotateX(180deg);
-      transition-delay: 0s;
+      transform: rotateX(178deg);
     }
 
     .intro-screen.opening .env-letter {
-      transform: translateY(-78px) scale(1.03);
-      transition-delay: 0.18s;
+      transform: translateY(-140px) scale(1.15);
+      opacity: 0;
+      transition-delay: 0.28s;
+    }
+
+    .intro-screen.opening .env-front-left {
+      transform: translateX(-16px) rotate(-2deg);
+      opacity: 0.65;
+    }
+
+    .intro-screen.opening .env-front-right {
+      transform: translateX(16px) rotate(2deg);
+      opacity: 0.65;
+    }
+
+    .intro-screen.opening .env-front-bottom {
+      transform: translateY(18px) scale(0.98);
+      opacity: 0.35;
     }
 
     .intro-screen.opening .env-seal {
       opacity: 0;
-      transform: translateX(-50%) scale(0.6);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: translateX(-50%) scale(0.58);
     }
 
     .page {
@@ -272,13 +298,18 @@
       position: relative;
       z-index: 2;
       opacity: 0;
-      transform: translateY(24px) scale(0.98);
-      transition: opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1), transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translateY(35px) scale(0.94);
+      filter: blur(8px);
+      transition:
+        opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.15s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.9s ease;
     }
 
     .page.show {
       opacity: 1;
       transform: translateY(0) scale(1);
+      filter: blur(0);
     }
 
     .invitation {
@@ -341,18 +372,8 @@
       z-index: 1;
     }
 
-    .flower.top-left {
-      top: -28px;
-      left: -24px;
-      transform: rotate(-22deg);
-    }
-
-    .flower.bottom-right {
-      bottom: -34px;
-      right: -26px;
-      transform: rotate(158deg);
-      animation-delay: 1.2s;
-    }
+    .flower.top-left { top: -28px; left: -24px; transform: rotate(-22deg); }
+    .flower.bottom-right { bottom: -34px; right: -26px; transform: rotate(158deg); animation-delay: 1.2s; }
 
     @keyframes flowerFloat {
       0%, 100% { translate: 0 0; }
@@ -487,14 +508,8 @@
     }
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(17px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(17px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .date-block {
@@ -506,14 +521,8 @@
       animation: fadeUp 0.85s ease both 0.68s;
     }
 
-    .date-side {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(192, 107, 134, 0.55));
-    }
-
-    .date-side.right {
-      background: linear-gradient(90deg, rgba(192, 107, 134, 0.55), transparent);
-    }
+    .date-side { height: 1px; background: linear-gradient(90deg, transparent, rgba(192, 107, 134, 0.55)); }
+    .date-side.right { background: linear-gradient(90deg, rgba(192, 107, 134, 0.55), transparent); }
 
     .date-center {
       min-width: 128px;
@@ -560,14 +569,8 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .detail:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 30px rgba(176, 101, 124, 0.14);
-    }
-
-    .detail.full {
-      grid-column: 1 / -1;
-    }
+    .detail:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(176, 101, 124, 0.14); }
+    .detail.full { grid-column: 1 / -1; }
 
     .label {
       display: block;
@@ -596,21 +599,79 @@
       font-weight: 500;
     }
 
+    .confirm-box {
+      margin-top: 22px;
+      padding: 18px 15px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255, 246, 248, 0.96), rgba(246, 230, 199, 0.48));
+      border: 1px solid rgba(212, 161, 80, 0.42);
+      box-shadow: 0 13px 28px rgba(176, 101, 124, 0.1);
+      animation: fadeUp 0.85s ease both 0.9s;
+    }
+
+    .confirm-title {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.42rem;
+      font-weight: 700;
+      color: var(--rose);
+      margin-bottom: 8px;
+    }
+
+    .confirm-text {
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .confirm-btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--rose), #d8899f);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      box-shadow: 0 12px 22px rgba(192, 107, 134, 0.24);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .confirm-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 26px rgba(192, 107, 134, 0.3);
+    }
+
+    .payment-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.64);
+      border: 1px dashed rgba(192, 107, 134, 0.38);
+      color: #7d5962;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      animation: fadeUp 0.85s ease both 1s;
+    }
+
     .closing {
-      margin-top: 26px;
+      margin-top: 22px;
       color: #8b5b66;
       font-size: 0.91rem;
       line-height: 1.65;
-      animation: fadeUp 0.85s ease both 0.92s;
+      animation: fadeUp 0.85s ease both 1.08s;
     }
 
     .cake-line {
       filter: drop-shadow(0 8px 12px rgba(192,107,134,0.2));
       width: 118px;
       height: 86px;
-      margin: 23px auto 0;
+      margin: 22px auto 0;
       position: relative;
-      animation: fadeUp 0.85s ease both 1.02s, softFloat 3.8s ease-in-out infinite 1.2s;
+      animation: fadeUp 0.85s ease both 1.16s, softFloat 3.8s ease-in-out infinite 1.2s;
     }
 
     @keyframes softFloat {
@@ -626,19 +687,8 @@
       background: rgba(255, 246, 248, 0.92);
     }
 
-    .cake-layer.bottom {
-      width: 112px;
-      height: 35px;
-      bottom: 0;
-      border-radius: 10px 10px 14px 14px;
-    }
-
-    .cake-layer.top {
-      width: 80px;
-      height: 30px;
-      bottom: 33px;
-      border-radius: 10px 10px 12px 12px;
-    }
+    .cake-layer.bottom { width: 112px; height: 35px; bottom: 0; border-radius: 10px 10px 14px 14px; }
+    .cake-layer.top { width: 80px; height: 30px; bottom: 33px; border-radius: 10px 10px 12px 12px; }
 
     .cake-layer::before {
       content: "";
@@ -701,9 +751,7 @@
       display: none;
     }
 
-    .music-btn.show {
-      display: block;
-    }
+    .music-btn.show { display: block; }
 
     @media (max-width: 380px) {
       body { padding: 12px; }
@@ -715,6 +763,7 @@
       .address { font-size: 0.79rem; }
       .envelope-title { font-size: 1.78rem; }
       .envelope { height: 210px; }
+      .confirm-text, .payment-note { font-size: 0.75rem; }
     }
   </style>
 </head>
@@ -805,6 +854,18 @@
             </div>
           </div>
 
+          <div class="confirm-box">
+            <span class="confirm-title">Confirmar asistencia</span>
+            <p class="confirm-text">
+              Para organizar mejor la reserva, por favor confirma tu asistencia con anticipación.
+            </p>
+            <a class="confirm-btn" href="https://wa.me/?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20la%20cena%20de%20cumplea%C3%B1os%20de%20Alejandra." target="_blank">Confirmar por WhatsApp</a>
+          </div>
+
+          <p class="payment-note">
+            Nota: la cuenta de la cena se dividirá por persona.
+          </p>
+
           <p class="closing">
             Tu compañía hará que esta celebración sea aún más especial.
           </p>
@@ -870,13 +931,13 @@
       playMusic();
 
       setTimeout(() => {
-        intro.classList.add("hide");
-      }, 1050);
-
-      setTimeout(() => {
         page.classList.add("show");
         musicBtn.classList.add("show");
-      }, 1180);
+      }, 760);
+
+      setTimeout(() => {
+        intro.classList.add("hide");
+      }, 1450);
     }
 
     function handleOpen(event) {
