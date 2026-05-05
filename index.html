@@ -57,26 +57,47 @@
         transform: translateY(105vh) scale(0.7);
         opacity: 0;
       }
-      20% {
-        opacity: 1;
-      }
+      20% { opacity: 1; }
       100% {
         transform: translateY(-15vh) scale(1.12);
         opacity: 0;
       }
     }
 
-    .page {
-      width: min(430px, 100%);
-      position: relative;
-      z-index: 2;
-      animation: cardEntrance 1s ease both;
+    .intro-screen {
+      touch-action: manipulation;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255, 218, 230, 0.95), transparent 32%),
+        radial-gradient(circle at 85% 88%, rgba(246, 230, 199, 0.85), transparent 34%),
+        linear-gradient(135deg, #fff6f8, #f8dfe8, #fffaf0);
+      transition: opacity 0.9s ease, visibility 0.9s ease;
     }
 
-    @keyframes cardEntrance {
+    .intro-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-area {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      width: min(360px, 92vw);
+      text-align: center;
+      animation: envelopeEnter 1s ease both;
+    }
+
+    @keyframes envelopeEnter {
       from {
         opacity: 0;
-        transform: translateY(24px) scale(0.98);
+        transform: translateY(20px) scale(0.97);
       }
       to {
         opacity: 1;
@@ -84,8 +105,182 @@
       }
     }
 
+    .envelope-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.05rem;
+      color: var(--rose-dark);
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+    .envelope-subtitle {
+      font-size: 0.78rem;
+      color: #8b5b66;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 34px;
+      font-weight: 600;
+    }
+
+    .envelope {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      width: 100%;
+      height: 230px;
+      position: relative;
+      cursor: pointer;
+      filter: drop-shadow(0 24px 30px rgba(132, 78, 92, 0.24));
+      animation: envelopeFloat 3.5s ease-in-out infinite;
+    }
+
+    @keyframes envelopeFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .env-back {
+      pointer-events: none;
+      position: absolute;
+      inset: 45px 0 0;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fff8fb, #f3c9d6);
+      border: 1px solid rgba(192, 107, 134, 0.25);
+    }
+
+    .env-letter {
+      pointer-events: none;
+      position: absolute;
+      width: 82%;
+      height: 145px;
+      left: 9%;
+      top: 10px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(212, 161, 80, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: var(--rose);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.3rem;
+      transition: transform 0.8s ease;
+    }
+
+    .env-letter small {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 2.4px;
+      color: #9b6b74;
+      margin-top: 8px;
+    }
+
+    .env-flap {
+      pointer-events: none;
+      position: absolute;
+      left: 0;
+      top: 45px;
+      width: 100%;
+      height: 118px;
+      background: linear-gradient(135deg, #f1bccd, #fff0f5);
+      clip-path: polygon(0 0, 50% 78%, 100% 0);
+      transform-origin: top;
+      transition: transform 0.8s ease;
+      z-index: 3;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .env-front-left,
+    .env-front-right,
+    .env-front-bottom {
+      pointer-events: none;
+      position: absolute;
+      inset: 45px 0 0;
+      border-radius: 18px;
+      z-index: 4;
+    }
+
+    .env-front-left {
+      background: linear-gradient(135deg, #f8d2de, #fff4f8);
+      clip-path: polygon(0 0, 50% 52%, 0 100%);
+    }
+
+    .env-front-right {
+      background: linear-gradient(225deg, #f8d2de, #fff4f8);
+      clip-path: polygon(100% 0, 50% 52%, 100% 100%);
+    }
+
+    .env-front-bottom {
+      background: linear-gradient(180deg, #fff5f8, #f0b8ca);
+      clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+    }
+
+    .env-seal {
+      pointer-events: none;
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #f3d89b);
+      left: 50%;
+      top: 128px;
+      transform: translateX(-50%);
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Cormorant Garamond", serif;
+      color: white;
+      font-size: 1.45rem;
+      box-shadow: 0 10px 20px rgba(212, 161, 80, 0.32);
+    }
+
+    .open-text {
+      margin-top: 32px;
+      font-size: 0.83rem;
+      color: #7d5962;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      font-weight: 600;
+      animation: tapPulse 1.7s ease-in-out infinite;
+    }
+
+    @keyframes tapPulse {
+      0%, 100% { opacity: 0.65; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    .intro-screen.opening .env-flap {
+      transform: rotateX(180deg);
+    }
+
+    .intro-screen.opening .env-letter {
+      transform: translateY(-65px);
+    }
+
+    .intro-screen.opening .env-seal {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .page {
+      width: min(430px, 100%);
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .page.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
     .invitation {
       position: relative;
+      backdrop-filter: blur(6px);
       background: rgba(255, 255, 255, 0.75);
       border-radius: 34px;
       padding: 11px;
@@ -106,6 +301,7 @@
 
     .inner {
       position: relative;
+      box-shadow: inset 0 0 40px rgba(255,255,255,0.4);
       min-height: 720px;
       border-radius: 27px;
       padding: 48px 22px 34px;
@@ -211,6 +407,7 @@
     }
 
     .headline {
+      position: relative;
       font-family: "Cormorant Garamond", serif;
       font-size: clamp(5.4rem, 26vw, 8.4rem);
       font-weight: 600;
@@ -222,9 +419,21 @@
       animation: fadeUp 0.85s ease both 0.28s;
     }
 
+    .headline small {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.2rem;
+      line-height: 1;
+      letter-spacing: 3px;
+      color: #8b5b66;
+      margin-top: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
     .headline span {
       display: block;
-      margin-top: 6px;
+      margin-top: 2px;
       font-size: clamp(3.2rem, 16vw, 5.2rem);
       line-height: 0.95;
       color: var(--rose);
@@ -393,6 +602,7 @@
     }
 
     .cake-line {
+      filter: drop-shadow(0 8px 12px rgba(192,107,134,0.2));
       width: 118px;
       height: 86px;
       margin: 23px auto 0;
@@ -470,70 +680,76 @@
       to { transform: translateX(-50%) rotate(-45deg) scale(1.08); }
     }
 
-    .note {
-      margin-top: 19px;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(246, 230, 199, 0.38);
-      border: 1px solid rgba(212, 161, 80, 0.3);
-      color: #805662;
-      font-size: 0.78rem;
-      line-height: 1.55;
-      animation: fadeUp 0.85s ease both 1.12s;
+    .music-btn {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      font-size: 17px;
+      cursor: pointer;
+      z-index: 10;
+      color: var(--rose-dark);
+      display: none;
+    }
+
+    .music-btn.show {
+      display: block;
     }
 
     @media (max-width: 380px) {
-      body {
-        padding: 12px;
-      }
-
-      .inner {
-        padding: 42px 18px 30px;
-      }
-
-      .headline {
-        font-size: 3rem;
-      }
-
-      .message {
-        font-size: 0.89rem;
-      }
-
-      .value {
-        font-size: 1.22rem;
-      }
-
-      .address {
-        font-size: 0.79rem;
-      }
+      body { padding: 12px; }
+      .inner { padding: 42px 18px 30px; }
+      .headline { font-size: 5rem; }
+      .headline span { font-size: 3rem; }
+      .message { font-size: 0.89rem; }
+      .value { font-size: 1.22rem; }
+      .address { font-size: 0.79rem; }
+      .envelope-title { font-size: 1.78rem; }
+      .envelope { height: 210px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
+  <div class="intro-screen" id="introScreen">
+    <div class="envelope-area">
+      <h2 class="envelope-title">Tienes una invitación especial</h2>
+      <p class="envelope-subtitle">de Alejandra</p>
+
+      <div class="envelope" id="openEnvelope">
+        <div class="env-back"></div>
+        <div class="env-letter">
+          21
+          <small>años</small>
+        </div>
+        <div class="env-flap"></div>
+        <div class="env-front-left"></div>
+        <div class="env-front-right"></div>
+        <div class="env-front-bottom"></div>
+        <div class="env-seal">A</div>
+      </div>
+
+      <p class="open-text">Toca el sobre para abrir</p>
+    </div>
+  </div>
+
+  <div class="page" id="invitationPage">
     <section class="invitation">
       <div class="inner">
         <div class="flower top-left">
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
+          <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
+          <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
           <span class="flower-center"></span>
         </div>
 
         <div class="flower bottom-right">
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
-          <span class="petal"></span>
+          <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
+          <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
           <span class="flower-center"></span>
         </div>
 
@@ -542,6 +758,7 @@
 
           <h1 class="headline">
             21
+            <small>años</small>
             <span>Alejandra</span>
           </h1>
 
@@ -550,7 +767,7 @@
           <div class="divider"></div>
 
           <p class="message">
-            Me gustaría mucho que me acompañes en esta fecha tan especial para mí. Será una cena sencilla y significativa, rodeada de las personas que quiero tener cerca en este nuevo año de vida.
+            Me gustaría que me acompañes en esta fecha especial. Será una buena ocasión para compartir ese día.
           </p>
 
           <div class="date-block">
@@ -596,12 +813,16 @@
             <div class="cake-layer top"></div>
             <div class="cake-layer bottom"></div>
           </div>
-
-          
         </div>
       </div>
     </section>
   </div>
+
+  <audio id="bg-music" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="music-btn" class="music-btn">❚❚</button>
 
   <script>
     const colors = ["#d4a150", "#c06b86", "#f4a9bf", "#ffffff"];
@@ -617,6 +838,63 @@
       sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
       document.body.appendChild(sparkle);
     }
+
+    const intro = document.getElementById("introScreen");
+    const envelope = document.getElementById("openEnvelope");
+    const envelopeArea = document.querySelector(".envelope-area");
+    const page = document.getElementById("invitationPage");
+    const audio = document.getElementById("bg-music");
+    const musicBtn = document.getElementById("music-btn");
+    let playing = false;
+    let alreadyOpened = false;
+
+    function playMusic() {
+      audio.volume = 0.45;
+      audio.play().then(() => {
+        playing = true;
+        musicBtn.textContent = "❚❚";
+      }).catch(() => {
+        playing = false;
+        musicBtn.textContent = "▶";
+      });
+    }
+
+    function openInvitation() {
+      if (alreadyOpened) return;
+      alreadyOpened = true;
+
+      intro.classList.add("opening");
+      playMusic();
+
+      setTimeout(() => {
+        intro.classList.add("hide");
+        page.classList.add("show");
+        musicBtn.classList.add("show");
+      }, 950);
+    }
+
+    function handleOpen(event) {
+      event.preventDefault();
+      openInvitation();
+    }
+
+    envelope.addEventListener("click", handleOpen);
+    envelope.addEventListener("pointerup", handleOpen);
+    envelope.addEventListener("touchend", handleOpen, { passive: false });
+
+    envelopeArea.addEventListener("click", handleOpen);
+    envelopeArea.addEventListener("pointerup", handleOpen);
+    envelopeArea.addEventListener("touchend", handleOpen, { passive: false });
+
+    musicBtn.addEventListener("click", () => {
+      if (playing) {
+        audio.pause();
+        playing = false;
+        musicBtn.textContent = "▶";
+      } else {
+        playMusic();
+      }
+    });
   </script>
 </body>
 </html>
